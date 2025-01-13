@@ -29,6 +29,10 @@ PLAYER_VEL = 5
 # display the window
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
+def get_background():
+    pass
+
+
 def main(window):
     # set the clock
     clock = pygame.time.Clock()
@@ -40,10 +44,12 @@ def main(window):
 
         # to deal with different events
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.QUIT: # if click the x
                 run = False
                 break
-
+        
+    pygame.quit() # shut up modules of pygame
+    quit() # stop execution of python program
     
 
 # if the file is run directly
