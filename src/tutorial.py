@@ -15,7 +15,7 @@ pygame.init()
 pygame.display.set_caption("My First Game")
 
 # set the background color
-BG_COLOR = (255, 255, 255) # white
+# BG_COLOR = (255, 255, 255) # white
 
 # set the height and width 
 WIDTH, HEIGHT = 1000, 800
@@ -29,13 +29,32 @@ PLAYER_VEL = 5
 # display the window
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
-def get_background():
-    pass
+def get_background(name): # set the background
+    # load the tile image
+    image = pygame.image.load(join("..", "assets", "Background", name))
+    _, _, width, height = image.get_rect() # get the dimenstion info
+    tiles = []
 
+    # fill the background with tiles
+    for i in range(WIDTH // width + 1): # no space missing
+        for j in range(HEIGHT // height + 1):
+            pos = (i * width, j * height) # as we draw from topleft corner
+            tiles.append(pos)
+
+    return tiles, image
+
+def draw(window, background, bg_image): # this will draw background in window
+    for tile in background: # tile is tuple
+        window.blit(bg_image, tile) # place image onto the pos
+
+
+    pygame.display.update()
 
 def main(window):
-    # set the clock
+    # set clock
     clock = pygame.time.Clock()
+    # get background info
+    background, bg_image = get_background("Blue.png")
 
     # event loop
     run = True
@@ -47,6 +66,7 @@ def main(window):
             if event.type == pygame.QUIT: # if click the x
                 run = False
                 break
+        draw(window, background, bg_image)
         
     pygame.quit() # shut up modules of pygame
     quit() # stop execution of python program
